@@ -7,13 +7,15 @@ wpi <- read_abs("6345.0",
   tables = "all",
   path = tempdir(),
   show_progress_bars = FALSE
-)
+) %>%
+  mutate(collection = "Wage Price Index")
 
 # Monthly LFS ----
 lfs <- read_abs("6202.0",
                 tables = "all",
                 path = tempdir(),
-                show_progress_bars = FALSE)
+                show_progress_bars = FALSE) %>%
+  mutate(collection = "Labour Force")
 
 # Reduce data size ---
 datasets <- list(wpi)

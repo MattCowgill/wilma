@@ -5,6 +5,6 @@ account: mattcowgill
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3234496
-bundleId: 3861710
+bundleId: 3864328
 url: https://mattcowgill.shinyapps.io/wilma/
-when: 1605409123.74275
+when: 1605480598.17285

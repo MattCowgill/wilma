@@ -22,6 +22,7 @@ Imports:
     shiny,
     ggiraph,
     stringr,
-    shinythemes
+    shinythemes,
+    markdown
 Suggests: 
     testthat
