@@ -20,6 +20,7 @@ Imports:
     ggplot2,
     rlang,
     shiny,
-    ggiraph
+    ggiraph,
+    stringr
 Suggests: 
     testthat

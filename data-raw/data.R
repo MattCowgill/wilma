@@ -9,6 +9,12 @@ wpi <- read_abs("6345.0",
   show_progress_bars = FALSE
 )
 
+# Monthly LFS ----
+lfs <- read_abs("6202.0",
+                tables = "all",
+                path = tempdir(),
+                show_progress_bars = FALSE)
+
 # Reduce data size ---
 datasets <- list(wpi)
 

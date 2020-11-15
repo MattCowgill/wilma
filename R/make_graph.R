@@ -9,7 +9,7 @@ make_graph <- function(chart_data,
       .data$date <= end_date) %>%
     ggplot(aes(x = .data$date, y = .data$value, col = stringr::str_wrap(.data$series, 80))) +
     geom_line() +
-    ggiraph::geom_point_interactive(aes(tooltip = value),
+    ggiraph::geom_point_interactive(aes(tooltip = .data$value),
                                     size = 3,
                                     alpha = .01) +
     theme_minimal(base_size = 16) +
