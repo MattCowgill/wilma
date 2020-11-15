@@ -9,7 +9,7 @@ make_graph <- function(chart_data,
       .data$date <= end_date) %>%
     ggplot(aes(x = .data$date, y = .data$value, col = .data$series)) +
     geom_line() +
-    theme_minimal() +
+    theme_minimal(base_size = 16) +
     theme(
       panel.grid.minor = element_blank(),
       legend.position = "bottom",
