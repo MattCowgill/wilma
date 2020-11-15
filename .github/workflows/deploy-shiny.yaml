@@ -1,0 +1,19 @@
+
+on: [push, pull_request]
+
+name: deploy-shiny
+
+jobs:
+  deploy-shiny:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+      - name: install-packages
+        run: |
+         Rscript -e "install.packages(c('shiny', 'rsconnect', 'remotes'), type = 'binary')"
+         Rscript -e "remotes::install_deps(type = 'binary', force = FALSE)"
+      - name: authorise-shiny
+        run: |
+         Rscript -e "rsconnect::setAccountInfo(name='mattcowgill', token=${{secrets.SHINYAPPS_TOKEN}}, secret=${{secrets.SHINYAPPS_SECRET}})"
+         Rscript -e "rsconnect::deployApp(appName = 'wilma')"
