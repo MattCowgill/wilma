@@ -7,7 +7,7 @@ make_graph <- function(chart_data,
   chart_data %>%
     dplyr::filter(.data$date >= start_date &
       .data$date <= end_date) %>%
-    ggplot(aes(x = .data$date, y = .data$value, col = .data$series)) +
+    ggplot(aes(x = .data$date, y = .data$value, col = stringr::str_wrap(.data$series, 80))) +
     geom_line() +
     ggiraph::geom_point_interactive(aes(tooltip = value),
                                     size = 3,

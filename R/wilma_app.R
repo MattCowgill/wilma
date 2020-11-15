@@ -6,7 +6,12 @@ wilma <- function(...) {
         uiOutput("series_select")
         ),
     fluidRow(
-      girafeOutput("plot")
+      column(
+        width = 12,
+        girafeOutput("plot",
+                     width = '100%',
+                     height = '600px')
+      )
     )
   )
 
@@ -29,7 +34,7 @@ wilma <- function(...) {
 
     output$plot <- renderGirafe({
       static_plot <- make_graph(chart_data())
-      ggiraph::girafe(ggobj = static_plot)
+      ggiraph::girafe(ggobj = static_plot, width_svg = 9, height_svg = 5)
     })
 
 
