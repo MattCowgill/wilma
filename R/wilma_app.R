@@ -1,25 +1,20 @@
 #' @import shiny
 wilma <- function(...) {
 
-  ui <- fluidPage(
-    fluidRow(
-        uiOutput("series_select")
-        ),
-    fluidRow(
-      uiOutput("date_select")
-    ),
-    fluidRow(
-      column(
-        width = 12,
-        ggiraph::girafeOutput("plot",
-                     width = '100%',
-                     height = '600px')
-      )
-    ),
-    fluidRow(
-      title = "How to get this data in R:",
+  ui <- navbarPage(
+    theme = shinythemes::shinytheme("paper"),
+    # theme = "paper.min.css",
+    title = "wilma",
+    tabPanel("Use wilma",
+      uiOutput("series_select"),
+      uiOutput("date_select"),
+      ggiraph::girafeOutput("plot",
+                       width = '100%',
+                       height = '600px'),
       verbatimTextOutput("code")
-    )
+    ),
+    tabPanel("About Wilma",
+             includeMarkdown("www/about.md"))
   )
 
   server <- function(input, output, session) {

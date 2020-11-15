@@ -12,7 +12,8 @@ make_graph <- function(chart_data,
     ggiraph::geom_point_interactive(aes(tooltip = .data$value),
                                     size = 3,
                                     alpha = .01) +
-    theme_minimal(base_size = 16) +
+    theme_minimal(base_size = 16,
+                  base_family = "Lato") +
     theme(
       panel.grid.minor = element_blank(),
       legend.position = "bottom",
