@@ -11,11 +11,11 @@ wpi <- read_abs("6345.0",
   mutate(collection = "Wage Price Index")
 
 # Monthly LFS ----
-lfs <- read_abs("6202.0",
-                tables = "all",
-                path = tempdir(),
-                show_progress_bars = FALSE) %>%
-  mutate(collection = "Labour Force")
+# lfs <- read_abs("6202.0",
+#                 tables = "all",
+#                 path = tempdir(),
+#                 show_progress_bars = FALSE) %>%
+#   mutate(collection = "Labour Force")
 
 # Reduce data size ---
 datasets <- list(wpi)
@@ -26,11 +26,13 @@ prep_df <- function(df) {
     # For now, collapse series_type into series
     dplyr::mutate(series = paste0(series, " ;  ", series_type)) %>%
     dplyr::select(
-    table_no, table_title, date, series, value,
-    series_id
-  ) %>%
-    dplyr::mutate(data_provider = "ABS",
-                  across(where(is.character), as.factor)) %>%
+      table_no, table_title, date, series, value,
+      series_id, collection,
+    ) %>%
+    dplyr::mutate(
+      data_provider = "ABS",
+      across(where(is.character), as.factor)
+    ) %>%
     dplyr::filter(!is.na(value))
 }
 
@@ -40,11 +42,12 @@ data_df <- purrr::map_dfr(
 )
 
 available_data <- data_df %>%
-  dplyr::group_by(series, series_id, data_provider) %>%
+  dplyr::group_by(collection, series, series_id, data_provider) %>%
   dplyr::summarise()
 
 data <- data_df %>%
   split(.$series_id)
 
 usethis::use_data(data, available_data,
-                  internal = TRUE, overwrite = TRUE)
+  internal = TRUE, overwrite = TRUE
+)

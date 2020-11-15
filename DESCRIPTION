@@ -23,6 +23,7 @@ Imports:
     ggiraph,
     stringr,
     shinythemes,
-    markdown
+    markdown,
+    purrr
 Suggests: 
     testthat

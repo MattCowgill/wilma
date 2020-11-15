@@ -7,18 +7,24 @@ make_graph <- function(chart_data,
   chart_data %>%
     dplyr::filter(.data$date >= start_date &
       .data$date <= end_date) %>%
-    ggplot(aes(x = .data$date, y = .data$value, col = stringr::str_wrap(.data$series, 80))) +
+    ggplot(aes(x = .data$date, y = .data$value, col = stringr::str_wrap(.data$series, 100))) +
     geom_line() +
     ggiraph::geom_point_interactive(aes(tooltip = .data$value),
-                                    size = 3,
-                                    alpha = .01) +
-    theme_minimal(base_size = 16,
-                  base_family = "Lato") +
+      size = 3,
+      colour = "white",
+      fill = "white",
+      alpha = .01
+    ) +
+    theme_minimal(
+      base_size = 14,
+      base_family = "Lato"
+    ) +
     theme(
       panel.grid.minor = element_blank(),
       legend.position = "bottom",
       axis.title = element_blank(),
-      legend.title = element_blank()
+      legend.title = element_blank(),
+      legend.text = element_text(size = 10),
+      legend.direction = "vertical"
     )
 }
-
