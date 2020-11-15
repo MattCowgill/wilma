@@ -19,6 +19,7 @@ Imports:
     dplyr (>= 1.0.0),
     ggplot2,
     rlang,
-    shiny
+    shiny,
+    ggiraph
 Suggests: 
     testthat

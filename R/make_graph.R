@@ -9,6 +9,9 @@ make_graph <- function(chart_data,
       .data$date <= end_date) %>%
     ggplot(aes(x = .data$date, y = .data$value, col = .data$series)) +
     geom_line() +
+    ggiraph::geom_point_interactive(aes(tooltip = value),
+                                    size = 3,
+                                    alpha = .01) +
     theme_minimal(base_size = 16) +
     theme(
       panel.grid.minor = element_blank(),
@@ -17,3 +20,4 @@ make_graph <- function(chart_data,
       legend.title = element_blank()
     )
 }
+

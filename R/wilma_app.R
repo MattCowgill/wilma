@@ -6,7 +6,7 @@ wilma <- function(...) {
         uiOutput("series_select")
         ),
     fluidRow(
-      plotOutput("plot")
+      girafeOutput("plot")
     )
   )
 
@@ -21,17 +21,15 @@ wilma <- function(...) {
     })
 
     chart_data <- reactive({
+      shiny::req(input$series_select)
       selected_series <- input$series_select
-      print(selected_series)
       selected_id <- as.character(available_data$series_id[available_data$series == selected_series])
       chart_data <- data[[selected_id]]
     })
 
-    reactive({print(chart_data())})
-
-    output$plot <- renderPlot({
-      chart_data() %>%
-        make_graph()
+    output$plot <- renderGirafe({
+      static_plot <- make_graph(chart_data())
+      ggiraph::girafe(ggobj = static_plot)
     })
 
 
