@@ -21,6 +21,9 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 
+## App
+[Live app here](https://mattcowgill.shinyapps.io/wilma/)
+
 ## Installation
 
 Install the development version from [GitHub](https://github.com/) with:
