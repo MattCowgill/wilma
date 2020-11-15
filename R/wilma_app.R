@@ -15,6 +15,10 @@ wilma <- function(...) {
                      width = '100%',
                      height = '600px')
       )
+    ),
+    fluidRow(
+      title = "How to get this data in R:",
+      verbatimTextOutput("code")
     )
   )
 
@@ -60,6 +64,9 @@ wilma <- function(...) {
     })
 
 
+    output$code <- renderText({
+      paste0("readabs::read_abs(series_id = ", selected_id(), ")")
+    })
 
   }
 

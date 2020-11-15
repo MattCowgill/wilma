@@ -11,6 +11,10 @@ status](https://github.com/MattCowgill/wilma/workflows/R-CMD-check/badge.svg)](h
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
+Web-based Interactive Lens on Macroeconomic data from Australia
+
+Inspired by [FRED](https://fred.stlouisfed.org).
+
 ## App
 
 [Live app here](https://mattcowgill.shinyapps.io/wilma/)
