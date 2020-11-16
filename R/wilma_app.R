@@ -29,19 +29,37 @@ wilma <- function(...) {
         label = "Select data collection",
         choices = unique(available_data$collection),
         multiple = FALSE,
-        selected = "Wage Price Index"
+        selected = "Labour Force"
       )
     })
 
+    default_series <- reactive({
+      selected_collection <- input$collection_select
+      dplyr::case_when(selected_collection == "Consumer Price Index" ~
+                         "Percentage Change from Corresponding Quarter of Previous Year ;  All groups CPI ;  Australia ; ;  Original",
+                       selected_collection == "Wage Price Index" ~
+                         "Percentage Change From Corresponding Quarter of Previous Year ;  Australia ;  Total hourly rates of pay excluding bonuses ;  Private and Public ;  All industries ; ;  Seasonally Adjusted",
+                       selected_collection == "Labour Force" ~
+                         "Unemployment rate ;  Persons ;  Australia ; ;  Seasonally Adjusted",
+                       TRUE ~ "")
+    })
+
     output$series_select <- renderUI({
-      selectInput("series_select",
+      selectizeInput("series_select",
         label = "Select series",
-        choices = as.character(available_data$series),
-        selectize = TRUE,
+        choices = series_within_collection(),
         multiple = TRUE,
-        selected = as.character(available_data$series[available_data$series_id == "A83895396W"]),
-        width = "100%"
+        selected = as.character(default_series()),
+        width = "100%",
+        options = list(maxOptions = 10000)
       )
+    })
+
+    series_within_collection <- reactive({
+      shiny::req(input$collection_select)
+      available_data %>%
+        dplyr::filter(.data$collection == input$collection_select) %>%
+        dplyr::pull(.data$series)
     })
 
     selected_ids <- reactive({
@@ -51,7 +69,8 @@ wilma <- function(...) {
     })
 
     chart_data <- reactive({
-      chart_data <- purrr::map_dfr(selected_ids(), ~ data[[.x]])
+      shiny::req(selected_ids())
+      dplyr::filter(data, .data$series_id %in% selected_ids() )
     })
 
     output$date_select <- renderUI({
@@ -62,7 +81,8 @@ wilma <- function(...) {
         label = "Select date range",
         min = min_data_date,
         max = max_data_date,
-        value = c(min_data_date, max_data_date)
+        value = c(min_data_date, max_data_date),
+        timeFormat = "%b %Y"
       )
     })
 

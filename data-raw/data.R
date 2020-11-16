@@ -4,21 +4,28 @@ library(purrr)
 
 # WPI ----
 wpi <- read_abs("6345.0",
-  tables = "all",
+  tables = c("1", "2b"),
   path = tempdir(),
   show_progress_bars = FALSE
 ) %>%
   mutate(collection = "Wage Price Index")
 
 # Monthly LFS ----
-# lfs <- read_abs("6202.0",
-#                 tables = "all",
-#                 path = tempdir(),
-#                 show_progress_bars = FALSE) %>%
-#   mutate(collection = "Labour Force")
+lfs <- read_abs("6202.0",
+                tables = c(1, 12, 19, 22),
+                path = tempdir(),
+                show_progress_bars = FALSE) %>%
+  mutate(collection = "Labour Force")
+
+# CPI ----
+cpi <- read_abs("6401.0",
+                tables = c(1, 3, 8),
+                path = tempdir(),
+                show_progress_bars = FALSE) %>%
+  mutate(collection = "Consumer Price Index")
 
 # Reduce data size ---
-datasets <- list(wpi)
+datasets <- list(wpi, cpi, lfs)
 
 prep_df <- function(df) {
   df %>%
@@ -26,7 +33,7 @@ prep_df <- function(df) {
     # For now, collapse series_type into series
     dplyr::mutate(series = paste0(series, " ;  ", series_type)) %>%
     dplyr::select(
-      table_no, table_title, date, series, value,
+      table_title, date, series, value,
       series_id, collection,
     ) %>%
     dplyr::mutate(
@@ -36,18 +43,26 @@ prep_df <- function(df) {
     dplyr::filter(!is.na(value))
 }
 
-data_df <- purrr::map_dfr(
+data <- purrr::map_dfr(
   datasets,
   prep_df
 )
 
-available_data <- data_df %>%
+data <- data %>%
+  distinct() %>%
+  group_by(series_id, date) %>%
+  arrange(series) %>%
+  filter(row_number() == 1) %>%
+  ungroup()
+
+available_data <- data %>%
   dplyr::group_by(collection, series, series_id, data_provider) %>%
   dplyr::summarise()
 
-data <- data_df %>%
-  split(.$series_id)
+# data <- data_df %>%
+#   split(.$series_id)
 
 usethis::use_data(data, available_data,
-  internal = TRUE, overwrite = TRUE
+  internal = TRUE, overwrite = TRUE,
+  version = 3
 )
