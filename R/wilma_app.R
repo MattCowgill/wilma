@@ -7,6 +7,8 @@ wilma <- function(...) {
       "Use wilma",
       uiOutput("collection_select"),
       uiOutput("series_select"),
+      shinyWidgets::chooseSliderSkin("Flat",
+                                     color = "#F8766D"),
       uiOutput("date_select"),
       ggiraph::girafeOutput("plot",
         width = "100%",
@@ -81,7 +83,8 @@ wilma <- function(...) {
         min = min_data_date,
         max = max_data_date,
         value = c(min_data_date, max_data_date),
-        timeFormat = "%b %Y"
+        timeFormat = "%b %Y",
+        ticks = FALSE
       )
     })
 

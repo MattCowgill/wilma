@@ -16,7 +16,7 @@ make_graph <- function(chart_data,
       alpha = .01
     ) +
     theme_minimal(
-      base_size = 14,
+      base_size = 11,
       base_family = "Roboto"
     ) +
     theme(
@@ -24,7 +24,7 @@ make_graph <- function(chart_data,
       legend.position = "bottom",
       axis.title = element_blank(),
       legend.title = element_blank(),
-      legend.text = element_text(size = 10),
+      legend.text = element_text(size = 9),
       legend.direction = "vertical"
     )
 }

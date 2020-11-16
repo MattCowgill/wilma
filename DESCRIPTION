@@ -24,6 +24,7 @@ Imports:
     stringr,
     shinythemes,
     markdown,
-    purrr
+    purrr,
+    shinyWidgets
 Suggests: 
     testthat
