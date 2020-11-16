@@ -2,7 +2,6 @@
 wilma <- function(...) {
   ui <- navbarPage(
     theme = shinythemes::shinytheme("paper"),
-    # theme = "paper.min.css",
     title = "wilma",
     tabPanel(
       "Use wilma",
@@ -96,7 +95,11 @@ wilma <- function(...) {
         end_date = input$date_select[2]
       )
 
-      ggiraph::girafe(ggobj = static_plot, width_svg = 9, height_svg = 5)
+      ggiraph::girafe(ggobj = static_plot,
+                      width_svg = 9,
+                      height_svg = 5,
+                      fonts = list(sans = "Roboto",
+                                   serif = "Roboto"))
     })
 
     output$download_data <- downloadHandler(

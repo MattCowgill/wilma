@@ -17,7 +17,7 @@ make_graph <- function(chart_data,
     ) +
     theme_minimal(
       base_size = 14,
-      base_family = "Lato"
+      base_family = "Roboto"
     ) +
     theme(
       panel.grid.minor = element_blank(),

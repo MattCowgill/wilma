@@ -4,7 +4,7 @@ library(purrr)
 
 # WPI ----
 wpi <- read_abs("6345.0",
-  tables = c("1", "2b"),
+  tables = c("1", "2b", "5b"),
   path = tempdir(),
   show_progress_bars = FALSE
 ) %>%
@@ -58,9 +58,6 @@ data <- data %>%
 available_data <- data %>%
   dplyr::group_by(collection, series, series_id, data_provider) %>%
   dplyr::summarise()
-
-# data <- data_df %>%
-#   split(.$series_id)
 
 usethis::use_data(data, available_data,
   internal = TRUE, overwrite = TRUE,
