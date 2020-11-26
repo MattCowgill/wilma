@@ -52,7 +52,8 @@ wilma <- function(...) {
         multiple = TRUE,
         selected = as.character(default_series()),
         width = "100%",
-        options = list(maxOptions = 10000)
+        options = list(maxOptions = 10000,
+                       maxItems = 10)
       )
     })
 
@@ -110,7 +111,7 @@ wilma <- function(...) {
         "wilma_data.csv"
       },
       content = function(file) {
-        utils::write.csv(chart_data(), file = file)
+        readr::write_csv(chart_data(), file = file)
       }
     )
 

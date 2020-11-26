@@ -25,6 +25,7 @@ Imports:
     shinythemes,
     markdown,
     purrr,
-    shinyWidgets
+    shinyWidgets,
+    readr
 Suggests: 
     testthat
