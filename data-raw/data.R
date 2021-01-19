@@ -4,24 +4,22 @@ library(purrr)
 
 # WPI ----
 wpi <- read_abs("6345.0",
-  tables = c("1", "2b", "5b"),
-  path = tempdir(),
-  show_progress_bars = FALSE
+  tables = c("1", "2b", "5b")
 ) %>%
   mutate(collection = "Wage Price Index")
 
 # Monthly LFS ----
 lfs <- read_abs("6202.0",
-                tables = c(1, 12, 19, 22),
-                path = tempdir(),
-                show_progress_bars = FALSE) %>%
+                tables = c("1", "12", "19") )
+
+lfs <- read_abs("6202.0",
+         tables = "22") %>%
+  bind_rows(lfs) %>%
   mutate(collection = "Labour Force")
 
 # CPI ----
 cpi <- read_abs("6401.0",
-                tables = c(1, 3, 8),
-                path = tempdir(),
-                show_progress_bars = FALSE) %>%
+                tables = c(1, 3, 8) ) %>%
   mutate(collection = "Consumer Price Index")
 
 # Reduce data size ---
