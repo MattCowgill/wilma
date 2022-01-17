@@ -11,9 +11,13 @@ status](https://github.com/MattCowgill/wilma/workflows/R-CMD-check/badge.svg)](h
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-Web-based Interactive Lens on Macroeconomic data from Australia
+Web-based Interactive Lens on Macroeconomic data from Australia (WILMA).
 
 Inspired by [FRED](https://fred.stlouisfed.org).
+
+WILMA provides a simple web-based interface to browse key Australian
+economic data. At this stage WILMA is an experiment and proof of concept
+only. The data is updated manually and sporadically.
 
 ## App
 
@@ -27,3 +31,7 @@ Install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("MattCowgill/wilma")
 ```
+
+## Contributions
+
+Contributions would be welcome. Please open an issue to discuss first.
